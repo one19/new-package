@@ -1,16 +1,19 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.163.1/containers/javascript-node/.devcontainer/base.Dockerfile
+FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:14
 
-# [Choice] Node.js version: 14, 12, 10
-ARG VARIANT="14-buster"
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
-
-# [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends cowsay fortune pulumi
+    && apt-get -y install --no-install-recommends fortune fortunes cowsay fonts-firacode fonts-powerline zsh
 
-# [Optional] Uncomment if you want to install an additional version of node using nvm
-# ARG EXTRA_NODE_VERSION=10
-# RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
+RUN curl -fsSL https://get.pulumi.com | sh \
+    && chown node:node -R /root/.pulumi/bin \
+    && cp -a /root/.pulumi/bin/. /usr/local/bin/
 
-# [Optional] Uncomment if you want to install more global node modules
-RUN su node -c "npm i -g lolcatjs zx np"
+USER node
+
+ENV PATH="/usr/games:${PATH}"
+
+RUN git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
+RUN npm i -g lolcatjs zx np
+
+CMD [ "/bin/zsh" ]

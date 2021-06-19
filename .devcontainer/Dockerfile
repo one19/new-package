@@ -14,6 +14,6 @@ ENV PATH="/usr/games:${PATH}"
 
 RUN git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
-RUN npm i -g lolcatjs zx np
+RUN npm i -g lolcatjs zx np npm-check git-open
 
 CMD [ "/bin/zsh" ]

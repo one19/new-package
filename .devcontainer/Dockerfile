@@ -13,6 +13,7 @@ USER node
 ENV PATH="/usr/games:${PATH}"
 
 RUN git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 
 RUN npm i -g lolcatjs zx np npm-check git-open
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env zx
 
+/* eslint-disable no-undef */
 await $`fortune | cowsay | lolcatjs`;
 
-const branch = await $`git branch --show-current`;
+await $`git branch --show-current`;
